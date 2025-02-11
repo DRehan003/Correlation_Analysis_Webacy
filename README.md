@@ -34,9 +34,41 @@ __The libraries__: <br>
 
 The dataset you will be using is a "__compiled_risk_dataset__". What exactly is in this dataset? This dataset contains 1094 entries of smart contract vulnerabilties. The first 3 columns contain essential information about the smart contract: the project name, the smart contract address, and the chain. The remaining columns are 32 potential risk tags that may be present in any given smart contract. The dataset is essentially a table that lists what specific risks are present in each contract.<br>
 <br>
-Download the dataset and save it into a pandas dataframe. Print the first five rive using the __.head()__ function and ensure it matches the following:
+Download the dataset and save it into a pandas dataframe. Print the first five rive using the __.head()__ function.
+
+<h2> Step 2: Create Fucntion to calculate correlations </h2>
+
+How will we calcuate the correlations? <br>
+<br>
+We will use Phi coefficient which is specifically designed for binary data. The Phi Coefficient is a measure of the association between two binary variables. To calculate the Phi coefficient, we first need to establish a function that can handle this calculation. Create a function that can compute correlations of 2 binary variables. <br>
+<br>
+The following code creates a contengency table: <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; __contingency_table = pd.crosstab(x, y)__ <br>
+<br>
+The following code calculate the phi coefficient: <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; __chi2 = scipy.stats.chi2_contingency(contingency_table, correction=False)[0]__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __n = np.sum(np.sum(contingency_table))__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __phi = np.sqrt(chi2 / n)__ <br>
+
+<h2> Step 3: Calculate Correlations </h2>
+
+ 1. First, we need to create an array called __risk_columns__ that will contain all of our risk tags.
+    
+ 2. Load the array into a pandas dataframe
+ 
+ 3. Create a DataFrame to store Phi coefficients using the following code
+   <br>
+   &nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix = pd.DataFrame(index=risk_df.columns, columns=risk_df.columns)__ <br>
+
+ 4. Use the following code to calculate Phi coefficient for each pair of binary variables <br>
+  &nbsp;&nbsp;&nbsp;&nbsp; __for var1 in risk_df.columns:__ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp; __for var2 in risk_df.columns:__ <br>
+  &nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix.loc[var1, var2] = phi_coefficient(risk_df[var1], risk_df[var2])__ <br>
 
 
-<h1> Conclusion </h1>
+
+<h2> Findings </h2>
 
 How did the frequency and correlation findings provide actionable insights into improving smart contract security? Include potential implications for preventive measures and the prioritization of security efforts. <br>
