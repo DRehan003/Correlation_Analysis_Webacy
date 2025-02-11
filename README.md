@@ -54,21 +54,42 @@ The following code calculate the phi coefficient: <br>
 
 <h2> Step 3: Calculate Correlations </h2>
 
- 1. First, we need to create an array called __risk_columns__ that will contain all of our risk tags.
-    
- 2. Load the array into a pandas dataframe
+  1. First, we need to create an array called __risk_columns__ that will contain all of our risk tags.
+  
+  2. Load the array into a pandas dataframe
+
+  3. Create a DataFrame to store Phi coefficients using the following code
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix = pd.DataFrame(index=risk_df.columns, columns=risk_df.columns)__ <br>
+
+  4. Use the following code to calculate Phi coefficient for each pair of binary variables <br>
  
- 3. Create a DataFrame to store Phi coefficients using the following code
-   <br>
-   &nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix = pd.DataFrame(index=risk_df.columns, columns=risk_df.columns)__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __for var1 in risk_df.columns:__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __for var2 in risk_df.columns:__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix.loc[var1, var2] = phi_coefficient(risk_df[var1], risk_df[var2])__ <br>
 
- 4. Use the following code to calculate Phi coefficient for each pair of binary variables <br>
-  &nbsp;&nbsp;&nbsp;&nbsp; __for var1 in risk_df.columns:__ <br>
-  &nbsp;&nbsp;&nbsp;&nbsp; __for var2 in risk_df.columns:__ <br>
-  &nbsp;&nbsp;&nbsp;&nbsp; __phi_matrix.loc[var1, var2] = phi_coefficient(risk_df[var1], risk_df[var2])__ <br>
+<h2> Step 4: Visualization </h2>
 
+Now it is time to visualize our analysis. Use the following code to create a heatmap:
 
+&nbsp;&nbsp;&nbsp;&nbsp; __plt.figure(figsize=(12, 10)) # Setting the size of the plot__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __sns.heatmap(phi_matrix.astype(float), annot=False, fmt=".2f", cmap='coolwarm', vmin=-1, vmax=1)__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __plt.title('Heatmap of Phi Coefficients Between Risk Tags')__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __plt.xticks(rotation=45, ha='right')__ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; __plt.show()__ <br>
+
+Your heatmap should look like the following:
+![image alt](Correlation_analysis.png)
 
 <h2> Findings </h2>
 
-How did the frequency and correlation findings provide actionable insights into improving smart contract security? Include potential implications for preventive measures and the prioritization of security efforts. <br>
+Positive correlations: <br>
+1. buy_tax and sell_tax
+2. encode_packed_parameters and encode_packed_collision
+3. encode_packed_collision and is_airdrop_scam
+4. illegal_unicode and is_airdrop_scam
+5. anti_whale_modiafiable and slippage_modifiable
+6. is_false_token and is_airdrop_scam
+7. shadowing_local and is_airdrop_scam
+8. shadowing_local and encode_packed_collision
+
