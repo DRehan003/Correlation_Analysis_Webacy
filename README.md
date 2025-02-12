@@ -93,3 +93,11 @@ Positive correlations: <br>
 7. shadowing_local and is_airdrop_scam
 8. shadowing_local and encode_packed_collision
 
+Deeper insghts:
+
+- "is_blacklisted" has a weak correlation with "is_honeypot". This may suggest that blacklisting mechanisms are not commonly seen in contracts that try to trap users.
+- Since "is_honeypot" and "anti_whale_modifiable" are correlated, it may suggest that contracts implementing anti-whale mechanisms often include honeypot-like restrictions.
+- The strogn correlation between "can_take_back_ownership" and "owner_change_balance" may indicate that contracts allowing ownership reversal often also have direct balance modification risks.
+- "centralized_risk_high", "centralized_risk_medium", and "centralized_risk_low" might show strong intra-group correlations, indicating that centralization-related vulnerabilities frequently co-occur.
+- "selfdestruct" and "trust_list" might correlate, meaning contracts using self-destruction mechanisms often implement allowlists. This can be a common issue amongst contracts that have both of these risk tags.
+
