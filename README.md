@@ -36,7 +36,7 @@ The dataset you will be using is a "__compiled_risk_dataset__". What exactly is 
 <br>
 Download the dataset and save it into a pandas dataframe. Print the first five rive using the __.head()__ function.
 
-<h2> Step 2: Create Fucntion to calculate correlations </h2>
+<h2> Step 2: Create Function to calculate correlations </h2>
 
 How will we calcuate the correlations? <br>
 <br>
