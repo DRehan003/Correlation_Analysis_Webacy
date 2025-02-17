@@ -83,7 +83,7 @@ Your heatmap should look like the following:
 
 <h2> Findings </h2>
 
-Positive correlations: <br>
+__Positive correlations:__ <br>
 1. buy_tax and sell_tax
 2. encode_packed_parameters and encode_packed_collision
 3. encode_packed_collision and is_airdrop_scam
@@ -93,7 +93,7 @@ Positive correlations: <br>
 7. shadowing_local and is_airdrop_scam
 8. shadowing_local and encode_packed_collision
 
-Deeper insghts:
+__Deeper insights:__
 
 - "is_blacklisted" has a weak correlation with "is_honeypot". This may suggest that blacklisting mechanisms are not commonly seen in contracts that try to trap users.
 - Since "is_honeypot" and "anti_whale_modifiable" are correlated, it may suggest that contracts implementing anti-whale mechanisms often include honeypot-like restrictions.
